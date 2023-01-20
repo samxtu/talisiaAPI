@@ -1,0 +1,90 @@
+version: '3.8'
+services:
+  postgres:
+    image: postgres:13-alpine
+    environment:
+      POSTGRES_HOST_AUTH_METHOD: trust
+    ports:
+      - "5432:5432"
+    volumes:
+      - postgres:/var/lib/postgresql/data
+  redis:
+    image: redis:6.2-alpine
+    ports:
+      - "6379:6379"
+    volumes:
+      - redis:/data
+  web:
+    depends_on:
+      - 'postgres'
+      - 'redis'
+    build:
+      context: .
+      dockerfile: main/Dockerfile.development
+    command: bash -c "rm -rf tmp/pids/server.pid && yarn install && yarn build && bundle exec rails s -b 0.0.0.0 -p 4000"
+    ports:
+      - '${DOCKER_HOST_WEB_PORT:-4000}:4000'
+    volumes:
+      - bundle_cache:/bundle
+      - ./main:/app
+      - ./main/.env:/app/.env
+    environment:
+      REDIS_URL: redis://redis:6379/0
+      DB_HOST: postgres
+      DB_PORT: 5432
+      DISABLE_SPRING: 1
+  worker:
+    depends_on:
+      - 'postgres'
+      - 'redis'
+      - 'web'
+    build:
+      context: .
+      dockerfile: main/Dockerfile.development
+    command: bundle exec sidekiq -C config/sidekiq.yml
+    volumes:
+      - bundle_cache:/bundle
+      - ./main:/app
+      - ./main/.env:/app/.env
+    environment:
+      REDIS_URL: redis://redis:6379/0
+      DB_HOST: postgres
+      DB_PORT: 5432
+      DISABLE_SPRING: 1
+  backend:
+    build: 
+      context: ./services
+      dockerfile: Dockerfile
+    command: yarn run start:dev
+    volumes:
+      - ./services:/api
+      - /api/node_modules
+    restart: always
+    env_file:
+      - .env
+    ports:
+      - $PORT:$PORT
+    image: ecommerceapi:latest
+    stdin_open: true
+  mongodb:
+    image: mongo
+    restart: always
+    env_file:
+      - .env
+    environment:
+      - MONGO_INITDB_ROOT_USERNAME=${DATABASE_USERNAME}
+      - MONGO_INITDB_ROOT_PASSWORD=${DATABASE_PASSWORD}
+    ports:
+      - $DATABASE_PORT:27017
+    volumes:
+      - mongodb:/data/new/mongodb
+    stdin_open: true
+    tty: true
+    depends_on:
+      - 'backend'
+
+volumes:
+  redis:
+  postgres:
+  bundle_cache:
+  mongodb:
