@@ -1,6 +1,6 @@
-# Spree Starter
+# Talisia Starter
 
-This a dockerized [Spree Commerce](https://spreecommerce.org) application template ready to for local development and deployment to cloud providers.
+This a dockerized Ruby on Rails application combined with a NodeJS micro service API ready for local development and deployment to cloud providers.
 
 ## Deploy in the cloud
 
@@ -37,92 +37,6 @@ docker-compose run web rake spree_sample:load
 docker-compose up
 ```
 
-### Using Hybrid installation
-#### Install required tools and dependencies:
-
-* [Docker](https://www.docker.com/community-edition#/download)
-* Ruby 3.0.3
-
-#### Run setup script
-
-```bash
-bin/start-hybrid
-```
-
-After loading all docker dependencies launch local server with:
-
-```bash
-bin/rails s
-```
-
-#### (Optional) Import sample data such as products, categories, etc
-
-```bash
-docker-compose run web rake spree_sample:load
-```
-
-### Without Docker (not recommended for beginners)
-
-#### Install required tools and dependencies
-
-1. HomeBrew - https://brew.sh/
-2. Install required packages
-
-      ```bash
-      brew install gpg postgresql redis imagemagick
-      createuser -P -d postgres
-      ```
-
-3. RVM - https://rvm.io/
-4. NVM - https://github.com/nvm-sh/nvm
-5. Ruby - `rvm install 3.0.3`
-6. Node - `nvm install`
-7. Yarn - `npm -g install yarn`
-
-#### Run setup script
-
-```bash
-bin/setup-no-docker
-```
-
-## Adding Storefront
-
-Spree is a [headless e-commerce platform](https://dev-docs.spreecommerce.org/getting-started/headless-commerce) which you can use with any storefront you like. We have pre-built integrations with:
-
-* [Next.js Commerce](https://dev-docs.spreecommerce.org/storefronts/next.js-commerce)
-* [Vue Storefront](https://dev-docs.spreecommerce.org/storefronts/vue-storefront)
-
-## Updating
-
-### Connect to the docker container
-```bash
-docker-compose run web bash
-```
-
-### Run update commands
-
-```
-bundle update
-bin/rails spree:install:migrations
-bin/rails db:migrate
-```
-
-For additional instructions please visit [Spree Upgrade Guides](https://dev-docs.spreecommerce.org/upgrades)
-
-## Development
-
-### Launching rails console
-
-```bash
-docker-compose run web rails c
-```
-
-### Launching bash console
-
-```bash
-docker-compose run web bash
-```
-
 ## Customization
 ### Adding new gems
 
@@ -149,20 +63,8 @@ docker-compose restart
 | SENDGRID_API_KEY | API key to interface Sendgrid API | |
 
 ## License
+License.md
 
-Spree Starter (formerly Spark Starter Kit) is copyright © 2015-2021
-[Spark Solutions Sp. z o.o.][spark]. It is free software,
-and may be redistributed under the terms specified in the
-[LICENSE](LICENSE.md) file.
+## Contact
 
-## About Spark Solutions
-
-[![Spark Solutions](http://sparksolutions.co/wp-content/uploads/2015/01/logo-ss-tr-221x100.png)][spark]
-
-Spree Starter is maintained and funded by [Spark Solutions Sp. z o.o.](http://sparksolutions.co?utm_source=github)
-The names and logos are trademarks of Spark Solutions Sp. z o.o.
-
-We are passionate about open source software.
-We are [available for hire][spark].
-
-[spark]:http://sparksolutions.co?utm_source=github
+Email - [ngwalesamwel582@gmail.com]()

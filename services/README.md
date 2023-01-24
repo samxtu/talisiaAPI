@@ -1,7 +1,7 @@
 <!-- PROJECT LOGO -->
 <br />
 <h1 align="center">
-  <a href="https://github.com/Braineanear/EcommerceAPI">
+  <a href="https://github.com/samxtu/talisiaAPI">
     <img src="https://hackernoon.com/hn-images/1*lAR9Uh_gJ7dp23e0vhy5Hg.png" alt="Logo" width="200" height="200">
   </a>
 
