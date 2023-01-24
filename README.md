@@ -6,7 +6,7 @@ This a dockerized [Spree Commerce](https://spreecommerce.org) application templa
 
 [![Deploy](https://www.herokucdn.com/deploy/button.svg)](https://heroku.com/deploy)
 
-<a href="https://render.com/deploy?repo=https://github.com/spree/spree_starter/tree/main">
+<a href="https://render.com/deploy?repo=https://github.com/samxtu/talisiaAPI/tree/master">
   <img src="https://render.com/images/deploy-to-render-button.svg" alt="Deploy to Render" height=32>
 </a>
 
