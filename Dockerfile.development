@@ -24,7 +24,7 @@ RUN apt-get clean -qy \
 RUN mkdir /app
 WORKDIR /app
 
-COPY **/package.json yarn.lock
+COPY package.json yarn.lock
 RUN yarn install --network-timeout 1000000 
 # RUN yarn install --force
 RUN yarn install
@@ -39,7 +39,7 @@ ENV BUNDLE_GEMFILE=/app/Gemfile \
   GEM_HOME=/bundle
 ENV PATH="${BUNDLE_BIN}:${PATH}"
 
-COPY **/Gemfile **/Gemfile.lock ./
+COPY Gemfile Gemfile.lock ./
 RUN bundle install
 
 EXPOSE 4000

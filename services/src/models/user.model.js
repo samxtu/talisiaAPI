@@ -6,13 +6,13 @@ import toJSON from './plugins/index';
 
 const userSchema = mongoose.Schema(
   {
-    name: {
+    first_name: {
       type: String,
-      required: [true, 'Please tell us your name']
+      required: [true, 'Please enter your first name']
     },
-    username: {
+    last_name: {
       type: String,
-      required: [true, 'Please enter your username']
+      required: [true, 'Please enter your last name']
     },
     email: {
       type: String,

@@ -85,6 +85,13 @@ import {
   deleteProductFromFavorite,
   checkProductInFavoriteList
 } from './favorite.controller';
+import {makeClient} from '@spree/storefront-api-v2-sdk';
+import createFetchFetcher from '@spree/node-fetcher/dist/server/index';
+
+const client = makeClient({
+  host: 'http://web:4000',
+  createFetcher: createFetchFetcher
+})
 
 const authController = {
   signin,
@@ -175,6 +182,7 @@ const favoriteController = {
 };
 
 export {
+  client,
   authController,
   userController,
   productController,

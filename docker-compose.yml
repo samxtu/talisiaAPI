@@ -20,14 +20,14 @@ services:
       - 'redis'
     build:
       context: .
-      dockerfile: main/Dockerfile.development
+      dockerfile: Dockerfile.development
     command: bash -c "rm -rf tmp/pids/server.pid && yarn install && yarn build && bundle exec rails s -b 0.0.0.0 -p 4000"
     ports:
       - '${DOCKER_HOST_WEB_PORT:-4000}:4000'
     volumes:
       - bundle_cache:/bundle
-      - ./main:/app
-      - ./main/.env:/app/.env
+      - .:/app
+      - .env:/app/.env
     environment:
       REDIS_URL: redis://redis:6379/0
       DB_HOST: postgres
@@ -37,15 +37,14 @@ services:
     depends_on:
       - 'postgres'
       - 'redis'
-      - 'web'
     build:
       context: .
-      dockerfile: main/Dockerfile.development
+      dockerfile: Dockerfile.development
     command: bundle exec sidekiq -C config/sidekiq.yml
     volumes:
       - bundle_cache:/bundle
-      - ./main:/app
-      - ./main/.env:/app/.env
+      - .:/app
+      - .env:/app/.env
     environment:
       REDIS_URL: redis://redis:6379/0
       DB_HOST: postgres
@@ -64,7 +63,7 @@ services:
       - .env
     ports:
       - $PORT:$PORT
-    image: ecommerceapi:latest
+    image: talisiaapi:latest
     stdin_open: true
   mongodb:
     image: mongo

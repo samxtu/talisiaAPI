@@ -3,8 +3,8 @@ import tokenTypes from '../config/tokens';
 
 // Utils
 import catchAsync from '../utils/catchAsync';
-import dataUri from '../utils/datauri';
-import { uploadFile } from '../utils/cloudinary';
+// import dataUri from '../utils/datauri';
+// import { uploadFile } from '../utils/cloudinary';
 import {
   sendVerificationEmail,
   sendAfterResetPasswordMessage
@@ -27,14 +27,14 @@ import { User, Token } from '../models/index';
  * @return  { Object<type|statusCode|message|user|tokens> }
  */
 export const signup = catchAsync(async (body, profileImage) => {
-  // 1) Check if profile image not provided
-  if (profileImage === undefined) {
-    return {
-      type: 'Error',
-      message: 'profileImageRequired',
-      statusCode: 400
-    };
-  }
+  // // 1) Check if profile image not provided
+  // if (profileImage === undefined) {
+  //   return {
+  //     type: 'Error',
+  //     message: 'profileImageRequired',
+  //     statusCode: 400
+  //   };
+  // }
 
   const { name, username, email, password, passwordConfirmation, role } = body;
   let { companyName, address, phone } = body;
@@ -89,15 +89,15 @@ export const signup = catchAsync(async (body, profileImage) => {
     };
   }
 
-  // 5) Specifiy folder name where the images are going to be uploaded in cloudinary
-  const folderName = `Users/${name.trim().split(' ').join('')}`;
+  // // 5) Specifiy folder name where the images are going to be uploaded in cloudinary
+  // const folderName = `Users/${name.trim().split(' ').join('')}`;
 
-  // 6) Upload image to cloudinary
-  const image = await uploadFile(
-    dataUri(profileImage).content,
-    folderName,
-    600
-  );
+  // // 6) Upload image to cloudinary
+  // const image = await uploadFile(
+  //   dataUri(profileImage).content,
+  //   folderName,
+  //   600
+  // );
 
   // 7) Create new user account
   const user = await User.create({
@@ -110,8 +110,8 @@ export const signup = catchAsync(async (body, profileImage) => {
     companyName,
     address,
     phone,
-    profileImage: image.secure_url,
-    profileImageId: image.public_id
+    // profileImage: image.secure_url,
+    // profileImageId: image.public_id
   });
 
   // 8) Generate tokens (access token & refresh token)

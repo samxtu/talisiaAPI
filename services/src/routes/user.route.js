@@ -27,11 +27,15 @@ router.get('/', getUsers);
 // Get User Route
 router.get('/:id', getUser);
 
+//user signup
+router.post('/', createUser);
+
 // Protect All Next Routes
 router.use(protect);
 
 // Create New User (Multer Middleware) Route
-router.post('/', restrictedTo('admin'), singleFile('image'), createUser);
+// router.post('/', restrictedTo('admin'), singleFile('image'), createUser);
+// router.post('/', createUser);
 
 // Update User Details Route
 router.patch('/update-details', updateUserDetails);

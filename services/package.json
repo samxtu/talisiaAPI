@@ -6,12 +6,12 @@
   "author": "Samwel Ngwale",
   "license": "ISC",
   "engines": {
-    "node": ">=12.0.0"
+    "node": ">=14.0.1"
   },
   "scripts": {
     "build": "babel src -d build",
     "build-docs": "babel docs -d build-docs",
-    "start:dev": "nodemon --exec babel-node src/server.js",
+    "start:dev": "nodemon -L --exec babel-node src/server.js",
     "start:prod": "yarn run build && yarn run build-docs && node build/server.js",
     "lint": "eslint \"**/*.js\" --ignore-pattern node_modules/",
     "lint:fix": "eslint --fix --ext .js,.jsx .",
@@ -30,6 +30,9 @@
     "@babel/core": "^7.15.8",
     "@babel/node": "^7.15.8",
     "@babel/preset-env": "^7.15.8",
+    "@spree/node-fetcher": "^1.0.0",
+    "@spree/platform-api-v2-sdk": "^1.1.1",
+    "@spree/storefront-api-v2-sdk": "^6.0.2",
     "argon2": "^0.28.2",
     "cloudinary": "^1.25.1",
     "compression": "^1.7.4",
@@ -42,6 +45,7 @@
     "express-rate-limit": "^5.2.6",
     "googleapis": "^89.0.0",
     "helmet": "^4.6.0",
+    "isomorphic-unfetch": "^4.0.2",
     "joi": "^17.4.2",
     "jsdocs": "^1.0.0",
     "jsonwebtoken": "^8.5.1",
@@ -50,8 +54,10 @@
     "mongoose": "^6.0.5",
     "morgan": "^1.10.0",
     "multer": "^1.4.2",
+    "node-fetch": "2.6.6",
     "node-polyglot": "^2.4.2",
     "nodemailer": "^6.5.0",
+    "nodemon": "^2.0.14",
     "slugify": "^1.5.3",
     "stripe": "^8.174.0",
     "swagger-ui-express": "^4.1.6",
@@ -72,7 +78,6 @@
     "eslint-plugin-prettier": "^4.0.0",
     "eslint-plugin-react": "^7.25.1",
     "jest": "^27.3.1",
-    "nodemon": "^2.0.14",
     "prettier": "^2.4.0",
     "supertest": "^6.1.6"
   },

@@ -5,7 +5,7 @@ import xss from 'xss-clean';
 import compression from 'compression';
 import cors from 'cors';
 import mongoSanitize from 'express-mongo-sanitize';
-// import swaggerUI from 'swagger-ui-express';
+import swaggerUI from 'swagger-ui-express';
 import createLocaleMiddleware from 'express-locale';
 
 // Configs
@@ -21,8 +21,8 @@ import AppError from './utils/appError';
 import startPolyglot from './utils/startPolyglot';
 
 // // Documentation
-// import docs from '../build-docs/swagger';
-
+import docs from '../build-docs/swagger';
+   
 // Routes 
 import routes from './routes';
 
@@ -73,7 +73,7 @@ if (config.env === 'production') {
 
 // API Routes
 app.use('/api', routes);
-// app.use('/api-docs', swaggerUI.serve, swaggerUI.setup(docs));
+app.use('/api-docs', swaggerUI.serve, swaggerUI.setup(docs));
 
 // When someone access route that does not exist
 app.all('*', (req, res, next) => {

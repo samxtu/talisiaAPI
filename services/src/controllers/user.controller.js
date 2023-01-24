@@ -1,23 +1,35 @@
+import fetch from 'isomorphic-unfetch';
 // Utils
 import catchAsync from '../utils/catchAsync';
-
 // Services
 import { userService } from '../services/index';
+import { client } from '.';
+
 
 /**
  * @desc      Create New User Controller
  * @param     { Object } req - Request object
  * @param     { Object } res - Response object
- * @property  { Object } req.body - Body object data
+ * @property  { Object } req.body - Body object data 
  * @property  { Object } req.file - User image
  * @returns   { JSON } - A JSON object representing the type, message and user data
  */
 export const createUser = catchAsync(async (req, res) => {
+  console.log("we got here");
   // 1) Create new user
-  const { type, message, statusCode, user } = await userService.createUser(
-    req.body,
-    req.file
-  );
+  // const { type, message, statusCode, user } = await userService.createUser(
+  //   req.body,
+  //   req.file
+  // );
+  const response = await client.account.create({
+    user: {
+      email: 'janen@snow.org',
+      password: 'spree123',
+      password_confirmation: 'spree123'
+    }
+  })
+  console.log("req: ", req.body);
+  const type = "Success";
 
   // 2) Check if there is an error
   if (type === 'Error') {
@@ -28,10 +40,10 @@ export const createUser = catchAsync(async (req, res) => {
   }
 
   // 3) If everything is OK, send data
-  return res.status(statusCode).json({
+  return res.status(200).json({
     type,
-    message: req.polyglot.t(message),
-    user
+    // message: req.polyglot.t(message),
+    user:response
   });
 });
 

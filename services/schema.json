@@ -1,0 +1,15 @@
+{
+"UserSignup ":
+    {
+      "name": "string",
+      "username": "username",
+      "email":"email",
+      "password": "password",
+      "passwordConfirmartion": "passwordConfirmartion",
+      "role": "role",
+      "phone": "phone",
+      "address": "address",
+      "companyName": "companyName",
+      "image": "image"
+    }
+}
